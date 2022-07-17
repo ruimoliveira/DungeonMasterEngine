@@ -5,6 +5,10 @@
 
 #include "Game/game.h"
 
+/**
+ * @class GameLogic
+ * @brief Implementation of basic game logic functionality
+ */
 class GameLogic {
 public:
 	GameLogic() {};

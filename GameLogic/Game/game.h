@@ -6,7 +6,8 @@
 #include <string>
 
 /**
- *
+ * @class Game
+ * @brief Implementation of game specific functionality
  */
 class Game {
 public:
