@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{48dc571c-57be-4bd8-ae69-92e00f7fe59f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{94889b7f-a031-4931-92a6-336f8f2f7aac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dep">
+      <UniqueIdentifier>{5bb1c32f-9729-4dc8-9a0b-6d35de9fc103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dep\glad">
+      <UniqueIdentifier>{db4505a7-766b-4635-9473-58c2038e392a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic">
+      <UniqueIdentifier>{f120fded-7b58-4ff4-accd-105518453326}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Engine">
+      <UniqueIdentifier>{fe30f60e-a8f0-4132-ba65-02210b774a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic\Game">
+      <UniqueIdentifier>{acc0c61a-19fb-4088-95ca-cc48754d0f8c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dep\glad\glad.c">
+      <Filter>dep\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogic\engine.cpp">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogic\gameLogic.cpp">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameLogic\engine.h">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogic\gameLogic.h">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogic\Engine\scene.h">
+      <Filter>Source Files\GameLogic\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogic\Game\game.h">
+      <Filter>Source Files\GameLogic\Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
