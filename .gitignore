@@ -6,3 +6,5 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
+# Visual Studio Debug files
+x64/**

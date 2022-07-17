@@ -20,7 +20,6 @@ void Engine::run() {
  * @return 0 on success, 1 on failure
  */
 int Engine::initGLFW() {
-    initGameLogic();
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
