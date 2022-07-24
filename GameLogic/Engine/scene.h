@@ -16,4 +16,4 @@ private:
 
 };
 
-#endif
+#endif // scene_h

@@ -3,12 +3,20 @@
 
 #include "engine.h"
 
+
+/**
+ * Engine destructor
+ */
+Engine::~Engine() {
+    delete shader;
+    delete gameLogic;
+}
+
 /**
  * Runs everything
  */
 void Engine::run() {
     initGLFW();
-    initGLAD();
     initOpenGL();
     mainLoop();
     clean();
@@ -25,7 +33,9 @@ int Engine::initGLFW() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(800, 600, "DungeonMasterEngine", NULL, NULL);
+    //loadUserConfigs();
+
+    window = glfwCreateWindow(800, 600, name.c_str(), NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -36,32 +46,24 @@ int Engine::initGLFW() {
     return EXIT_SUCCESS;
 }
 
-
 /**
- * Initiates GLAD
+ * Initiates OpenGL
  * 
  * @return 0 on success, 1 on failure
  */
-int Engine::initGLAD() {
+int Engine::initOpenGL() {
+    auto framebuffer_size_callback = [](GLFWwindow* window, int width, int height) {
+        glViewport(0, 0, width, height);
+    };
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    gladLoadGL();
+
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;
-}
-
-/**
- * Initiates OpenGL
- */
-void Engine::initOpenGL() {
-    glViewport(0, 0, 800, 600);
-
-    auto framebuffer_size_callback = [](GLFWwindow* window, int width, int height) {
-        glViewport(0, 0, width, height);
-    };
-
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 
 /**
@@ -81,28 +83,27 @@ void Engine::mainLoop() {
 
     initGameLogic();
 
+    shader = new Shader();
+    shader->shaderPipeline();
+
     while (running && !glfwWindowShouldClose(window)) {
         handleEvents();
-        render();
         update();
+        render();
     }
 
     clean();
 }
 
 /**
- * Render Function
- */
-void Engine::render() {
-    glfwSwapBuffers(window);
-    glfwPollEvents();
-}
-
-/**
  * Event Handler function
  */
 void Engine::handleEvents() {
-
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+            glfwSetWindowShouldClose(window, true);
+        }
+    }
 }
 
 /**
@@ -110,6 +111,18 @@ void Engine::handleEvents() {
  */
 void Engine::update() {
     //gameLogic->update();
+}
+
+/**
+ * Render Function
+ */
+void Engine::render() {
+    // rendering commands start
+    shader->renderShader();
+
+    // check and call events and swap the buffers
+    glfwPollEvents();
+    glfwSwapBuffers(window);
 }
 
 /**

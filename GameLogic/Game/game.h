@@ -18,4 +18,4 @@ private:
 	std::string name;
 };
 
-#endif
+#endif // game_h

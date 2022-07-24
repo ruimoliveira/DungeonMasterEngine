@@ -4,7 +4,7 @@
 #include "GameLogic/engine.h"
 
 int main() {
-	Engine* engine = new Engine("Dungeon Master");
+	Engine* engine = new Engine();
 
 	try {
 		engine->run();

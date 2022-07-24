@@ -8,6 +8,7 @@
 
 #include "gameLogic.h"
 #include "Game/game.h"
+#include "Engine/Rendering/shader.h"
 
 /**
  * @class Engine
@@ -15,19 +16,19 @@
  */
 class Engine {
 public:
-	Engine(std::string name) : name(name) {};
-	~Engine() {};
+	Engine() {};
+	~Engine();
 	void run();
 
 private:
-	std::string name;
+	const std::string name {"Dungeon Master Engine"};
 	GLFWwindow* window {nullptr};
 	GameLogic* gameLogic {nullptr};
 	bool running {false};
+	Shader* shader {nullptr};
 
 	int initGLFW();
-	int initGLAD();
-	void initOpenGL();
+	int initOpenGL();
 	void initGameLogic();
 	void mainLoop();
 	void handleEvents();
@@ -36,4 +37,4 @@ private:
 	void clean();
 };
 
-#endif
+#endif // engine_h

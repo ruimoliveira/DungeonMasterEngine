@@ -22,4 +22,4 @@ private:
 
 };
 
-#endif
+#endif gameLogic_h

@@ -139,11 +139,13 @@
   <ItemGroup>
     <ClCompile Include="dep\glad\glad.c" />
     <ClCompile Include="GameLogic\engine.cpp" />
+    <ClCompile Include="GameLogic\Engine\Rendering\shader.cpp" />
     <ClCompile Include="GameLogic\gameLogic.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLogic\engine.h" />
+    <ClInclude Include="GameLogic\Engine\Rendering\shader.h" />
     <ClInclude Include="GameLogic\Engine\scene.h" />
     <ClInclude Include="GameLogic\gameLogic.h" />
     <ClInclude Include="GameLogic\Game\game.h" />

@@ -34,6 +34,9 @@
     <Filter Include="Source Files\GameLogic\Game">
       <UniqueIdentifier>{acc0c61a-19fb-4088-95ca-cc48754d0f8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameLogic\Engine\Rendering">
+      <UniqueIdentifier>{b3b6ff8a-80f0-4a61-9bb1-9eeb568b82a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="GameLogic\gameLogic.cpp">
       <Filter>Source Files\GameLogic</Filter>
     </ClCompile>
+    <ClCompile Include="GameLogic\Engine\Rendering\shader.cpp">
+      <Filter>Source Files\GameLogic\Engine\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLogic\engine.h">
@@ -61,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="GameLogic\Game\game.h">
       <Filter>Source Files\GameLogic\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogic\Engine\Rendering\shader.h">
+      <Filter>Source Files\GameLogic\Engine\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
