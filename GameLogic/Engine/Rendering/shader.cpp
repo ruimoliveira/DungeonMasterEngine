@@ -162,6 +162,27 @@ void Shader::use() {
 }
 
 /**
+ * GLSL uniform bool variable setter 
+ */
+void Shader::setBool(const std::string& name, bool value) const {
+    glUniform1i(glGetUniformLocation(shaderProgramID, name.c_str()), (int)value);
+}
+
+/**
+ * GLSL uniform int variable setter 
+ */
+void Shader::setInt(const std::string& name, int value) const {
+    glUniform1i(glGetUniformLocation(shaderProgramID, name.c_str()), value);
+}
+
+/**
+ * GLSL uniform float variable setter 
+ */
+void Shader::setFloat(const std::string& name, float value) const {
+    glUniform1f(glGetUniformLocation(shaderProgramID, name.c_str()), value);
+}
+
+/**
  * Vertex Shader stage
  */
 void Shader::clean() {

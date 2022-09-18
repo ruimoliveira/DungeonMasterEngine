@@ -12,6 +12,12 @@ public:
 
     void shaderPipeline();
     void shaderRenderer(float time);
+    void use();
+
+    // utility uniform functions
+    void setBool(const std::string& name, bool value) const;
+    void setInt(const std::string& name, int value) const;
+    void setFloat(const std::string& name, float value) const;
 
 private:
     std::string vertexShaderSource {""};
@@ -31,7 +37,6 @@ private:
     void compileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource);
     void linkShader();
     void vertexBuilder();
-    void use();
     void clean();
 
 };
