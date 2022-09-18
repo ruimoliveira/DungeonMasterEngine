@@ -87,7 +87,9 @@ void Engine::mainLoop(std::string game) {
 
     initGameLogic(game);
 
-    shader = new Shader();
+    shader = new Shader("GameLogic/Engine/Rendering/Shaders/vertexShader.glsl",
+                        "",
+                        "GameLogic/Engine/Rendering/Shaders/fragmentShader.glsl");
     shader->shaderPipeline();
 
     while (running && !glfwWindowShouldClose(window)) {

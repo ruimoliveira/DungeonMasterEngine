@@ -2,6 +2,17 @@
 
 #include <glad/glad.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
+/**
+ * Deletes used shader data
+ */
+Shader::Shader(const char* vertexShaderPath, const char* geometryShaderPath, const char* fragmentShaderPath) {
+    readShader(vertexShaderPath, &vertexShaderSource);
+    //readShader(geometryShaderPath, &geometryShaderSource);
+    readShader(fragmentShaderPath, &fragmentShaderSource);
+}
 
 /**
  * Deletes used shader data
@@ -17,70 +28,68 @@ Shader::~Shader() {
  * Shader pipeline function
  */
 void Shader::shaderPipeline() {
-    vertexShader();
-    geometryShader();
-    fragmentShader();
-
-    shaderLinker();
+    if (vertexShaderSource.empty() || fragmentShaderSource.empty()) {
+        std::cout << "ERROR::SHADER::NO_SHADER_CODE_COMPILED" << std::endl;
+        return;
+    }
+    compileShader(&vertexShaderID, GL_VERTEX_SHADER, &vertexShaderSource);
+    //compileShader(&geometryShaderID, GL_GEOMETRY_SHADER,&geometryShaderSource);
+    compileShader(&fragmentShaderID, GL_FRAGMENT_SHADER, &fragmentShaderSource);
+    
+    linkShader();
     clean();
 
     vertexBuilder();
 }
 
 /**
- * Vertex Shader stage
+ * GLSL shader code reader
  */
-void Shader::vertexShader() {
-    // vertex shader pipeline commands
-    vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShaderID, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShaderID);
-
-    // check for compile errors
-    int  success;
-    char infoLog[512];
-    glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        glGetShaderInfoLog(vertexShaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+void Shader::readShader(const char* shaderPath, std::string* shaderSource) {
+    std::string glslCode;
+    std::ifstream shaderFile;
+    shaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
+    try {
+        shaderFile.open(shaderPath);
+        std::stringstream shaderStream;
+        shaderStream << shaderFile.rdbuf();
+        shaderFile.close();
+        glslCode = shaderStream.str();
+    } catch (std::ifstream::failure e) {
+        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << shaderPath << std::endl;
+        glslCode = "";
     }
+    *shaderSource = glslCode;
 }
 
 /**
- * Geometry Shader stage
+ * Shader compiler function
  */
-void Shader::geometryShader() {
-    // geometry shader pipeline commands
-
-}
-
-/**
- * Fragment Shader stage
- */
-void Shader::fragmentShader() {
-    // fragment shader pipeline commands
-    fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShaderID, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShaderID);
-
-    // check for compile errors
+void Shader::compileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource) {
+    //shader pipeline commands
+    *shaderID = glCreateShader(glShader);
+    const char* source = (*shaderSource).c_str();
+    glShaderSource(*shaderID, 1, &source, NULL);
+    glCompileShader(*shaderID);
+    
+    //check for compile errors
     int  success;
     char infoLog[512];
-    glGetShaderiv(fragmentShaderID, GL_COMPILE_STATUS, &success);
+    glGetShaderiv(*shaderID, GL_COMPILE_STATUS, &success);
     if (!success) {
-        glGetShaderInfoLog(fragmentShaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::FRAGMENT::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        glGetShaderInfoLog(*shaderID, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 }
 
 /**
  * Vertex Attribute Linker
  */
-void Shader::shaderLinker() {
+void Shader::linkShader() {
     // shader program
     shaderProgramID = glCreateProgram();
     glAttachShader(shaderProgramID, vertexShaderID);
-    //glAttachShader(shaderProgram, geometryShaderID);
+    //glAttachShader(shaderProgramID, geometryShaderID);
     glAttachShader(shaderProgramID, fragmentShaderID);
     glLinkProgram(shaderProgramID);
 
