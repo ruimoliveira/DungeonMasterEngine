@@ -11,11 +11,11 @@
  */
 class Game {
 public:
-	Game(std::string name) : name(name) {};
-	~Game() {};
+    Game(std::string name) : name(name) {};
+    ~Game() {};
 
 private:
-	std::string name;
+    std::string name;
 };
 
 #endif // game_h

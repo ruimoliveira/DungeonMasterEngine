@@ -4,17 +4,18 @@
 #include "GameLogic/engine.h"
 
 int main() {
-	Engine* engine = new Engine();
+    Engine* engine = new Engine();
+    std::string game = "Magic: Plane at War";
 
-	try {
-		engine->run();
-	}
-	catch (const std::exception& e) {
-		std::cerr << e.what() << std::endl;
-		return EXIT_FAILURE;
-	}
+    try {
+        engine->run(game);
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
-	delete engine;
+    delete engine;
 
-	return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }

@@ -15,27 +15,31 @@ Engine::~Engine() {
 /**
  * Runs everything
  */
-void Engine::run() {
-    initGLFW();
+void Engine::run(std::string game) {
+    initGLFW(game);
     initOpenGL();
-    mainLoop();
+    mainLoop(game);
     clean();
 }
 
 /**
  * Initiates GLFW
- * 
+ *
  * @return 0 on success, 1 on failure
  */
-int Engine::initGLFW() {
+int Engine::initGLFW(std::string game) {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    //loadUserConfigs();
+#ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+    
+    //TODO: loadUserConfigs();
 
-    window = glfwCreateWindow(800, 600, name.c_str(), NULL, NULL);
+    window = glfwCreateWindow(800, 600, game.c_str(), NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -48,7 +52,7 @@ int Engine::initGLFW() {
 
 /**
  * Initiates OpenGL
- * 
+ *
  * @return 0 on success, 1 on failure
  */
 int Engine::initOpenGL() {
@@ -69,21 +73,23 @@ int Engine::initOpenGL() {
 /**
  * Initiates Game Logic
  */
-void Engine::initGameLogic() {
+void Engine::initGameLogic(std::string game) {
     gameLogic = new GameLogic();
 
-    //loadGameSettings();
+    //TODO: loadGameSettings(game);
 }
 
 /**
  * Main loop function
  */
-void Engine::mainLoop() {
+void Engine::mainLoop(std::string game) {
     running = true;
 
-    initGameLogic();
+    initGameLogic(game);
 
-    shader = new Shader();
+    shader = new Shader("GameLogic/Engine/Rendering/Shaders/vertexShader.glsl",
+                        "",
+                        "GameLogic/Engine/Rendering/Shaders/fragmentShader.glsl");
     shader->shaderPipeline();
 
     while (running && !glfwWindowShouldClose(window)) {
@@ -99,6 +105,8 @@ void Engine::mainLoop() {
  * Event Handler function
  */
 void Engine::handleEvents() {
+    // TODO: handle game logic events
+    
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, true);
@@ -118,7 +126,7 @@ void Engine::update() {
  */
 void Engine::render() {
     // rendering commands start
-    shader->renderShader();
+    shader->shaderRenderer(glfwGetTime());
 
     // check and call events and swap the buffers
     glfwPollEvents();

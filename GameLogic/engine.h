@@ -16,25 +16,24 @@
  */
 class Engine {
 public:
-	Engine() {};
-	~Engine();
-	void run();
+    Engine() {};
+    ~Engine();
+    void run(std::string game);
 
 private:
-	const std::string name {"Dungeon Master Engine"};
-	GLFWwindow* window {nullptr};
-	GameLogic* gameLogic {nullptr};
-	bool running {false};
-	Shader* shader {nullptr};
+    GLFWwindow* window {nullptr};
+    GameLogic* gameLogic {nullptr};
+    bool running {false};
+    Shader* shader {nullptr};
 
-	int initGLFW();
-	int initOpenGL();
-	void initGameLogic();
-	void mainLoop();
-	void handleEvents();
-	void update();
-	void render();
-	void clean();
+    int initGLFW(std::string game);
+    int initOpenGL();
+    void initGameLogic(std::string game);
+    void mainLoop(std::string game);
+    void handleEvents();
+    void update();
+    void render();
+    void clean();
 };
 
 #endif // engine_h
