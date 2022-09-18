@@ -11,15 +11,15 @@
  */
 class GameLogic {
 public:
-	GameLogic() {};
-	~GameLogic() {};
+    GameLogic() {};
+    ~GameLogic() {};
 
-	void update();
+    void update();
 
 private:
-	int gameState {};
-	Game* game {nullptr};
+    int gameState {};
+    Game* game {nullptr};
 
 };
 
-#endif gameLogic_h
+#endif // gameLogic_h
