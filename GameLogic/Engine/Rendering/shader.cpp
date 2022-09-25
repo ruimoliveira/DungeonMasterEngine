@@ -6,7 +6,11 @@
 #include <sstream>
 
 /**
- * Deletes used shader data
+ * Shader constructor
+ *
+ * @param vertexShaderPath Path to vertex shader GLSL code
+ * @param geometryShaderPath Path to geometry shader GLSL code
+ * @param fragmentShaderPath Path to fragment shader GLSL code
  */
 Shader::Shader(const char* vertexShaderPath, const char* geometryShaderPath, const char* fragmentShaderPath) {
     readShader(vertexShaderPath, &vertexShaderSource);
@@ -15,7 +19,7 @@ Shader::Shader(const char* vertexShaderPath, const char* geometryShaderPath, con
 }
 
 /**
- * Deletes used shader data
+ * Shader destructor
  */
 Shader::~Shader() {
     glDeleteVertexArrays(1, &VAO);
@@ -32,10 +36,11 @@ void Shader::shaderPipeline() {
         std::cout << "ERROR::SHADER::NO_SHADER_CODE_COMPILED" << std::endl;
         return;
     }
+
     compileShader(&vertexShaderID, GL_VERTEX_SHADER, &vertexShaderSource);
     //compileShader(&geometryShaderID, GL_GEOMETRY_SHADER,&geometryShaderSource);
     compileShader(&fragmentShaderID, GL_FRAGMENT_SHADER, &fragmentShaderSource);
-    
+
     linkShader();
     clean();
 
@@ -44,6 +49,9 @@ void Shader::shaderPipeline() {
 
 /**
  * GLSL shader code reader
+ *
+ * @param shaderPath Path to shader GLSL code
+ * @param shaderSource Variable to save source code into
  */
 void Shader::readShader(const char* shaderPath, std::string* shaderSource) {
     std::string glslCode;
@@ -64,6 +72,10 @@ void Shader::readShader(const char* shaderPath, std::string* shaderSource) {
 
 /**
  * Shader compiler function
+ *
+ * @param shaderID Variable to save shader ID on
+ * @param glShader Type of shader to be compiled
+ * @param shaderSource Shader GLSL source code
  */
 void Shader::compileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource) {
     //shader pipeline commands
@@ -145,6 +157,8 @@ void Shader::vertexBuilder() {
 
 /**
  * Render function
+ *
+ * @param time Time since last frame
  */
 void Shader::shaderRenderer(float time) {
     use();
@@ -155,7 +169,7 @@ void Shader::shaderRenderer(float time) {
 }
 
 /**
- * Vertex Shader stage
+ * Shader activation function
  */
 void Shader::use() {
     glUseProgram(shaderProgramID);
@@ -183,10 +197,9 @@ void Shader::setFloat(const std::string& name, float value) const {
 }
 
 /**
- * Vertex Shader stage
+ * Cleaner function
  */
 void Shader::clean() {
-    // shader clean
     glDeleteShader(vertexShaderID);
     //glDeleteShader(geometryShaderID);
     glDeleteShader(fragmentShaderID);

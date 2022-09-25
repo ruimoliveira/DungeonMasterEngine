@@ -14,6 +14,8 @@ Engine::~Engine() {
 
 /**
  * Runs everything
+ *
+ * @param game Name of the game
  */
 void Engine::run(std::string game) {
     initGLFW(game);
@@ -25,6 +27,7 @@ void Engine::run(std::string game) {
 /**
  * Initiates GLFW
  *
+ * @param game Name of the game
  * @return 0 on success, 1 on failure
  */
 int Engine::initGLFW(std::string game) {
@@ -72,6 +75,8 @@ int Engine::initOpenGL() {
 
 /**
  * Initiates Game Logic
+ *
+ * @param game Name of the game
  */
 void Engine::initGameLogic(std::string game) {
     gameLogic = new GameLogic();
@@ -81,6 +86,8 @@ void Engine::initGameLogic(std::string game) {
 
 /**
  * Main loop function
+ *
+ * @param game Name of the game
  */
 void Engine::mainLoop(std::string game) {
     running = true;
