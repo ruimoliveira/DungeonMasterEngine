@@ -5,6 +5,11 @@
 
 #include <string>
 
+/**
+ * @class Shader
+ *
+ * @brief Implementation of basic shader functionality
+ */
 class Shader {
 public:
     Shader(const char* vertexShaderPath, const char* geometryShaderPath, const char* fragmentShaderPath);
