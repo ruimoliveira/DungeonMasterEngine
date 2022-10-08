@@ -1,5 +1,6 @@
 # Visual Studio C++ cache files
 ipch/
+/.vs
 *.aps
 *.ncb
 *.opendb
