@@ -7,5 +7,12 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
+
 # Visual Studio Debug files
 x64/**
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
