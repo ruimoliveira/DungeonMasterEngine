@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Rui Miguel\source\repos\DungeonMasterEngine\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Rui Miguel\source\repos\DungeonMasterEngine\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\Coding_Projects\DungeonMasterEngine\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\Coding_Projects\DungeonMasterEngine\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\Rui Miguel\source\repos\DungeonMasterEngine\include;$(IncludePath)</IncludePath>
@@ -138,17 +138,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dep\glad\glad.c" />
-    <ClCompile Include="GameLogic\engine.cpp" />
-    <ClCompile Include="GameLogic\Engine\Rendering\shader.cpp" />
-    <ClCompile Include="GameLogic\gameLogic.cpp" />
+    <ClCompile Include="Game\Engine\engine.cpp" />
+    <ClCompile Include="Game\Engine\Rendering\shader.cpp" />
+    <ClCompile Include="Game\game.cpp" />
+    <ClCompile Include="Game\GameLogic\gameLogic.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameLogic\engine.h" />
-    <ClInclude Include="GameLogic\Engine\Rendering\shader.h" />
-    <ClInclude Include="GameLogic\Engine\scene.h" />
-    <ClInclude Include="GameLogic\gameLogic.h" />
-    <ClInclude Include="GameLogic\Game\game.h" />
+    <ClInclude Include="Game\Engine\engine.h" />
+    <ClInclude Include="Game\Engine\Rendering\shader.h" />
+    <ClInclude Include="Game\game.h" />
+    <ClInclude Include="Game\GameLogic\gameLogic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

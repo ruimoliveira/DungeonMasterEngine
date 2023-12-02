@@ -1,36 +1,41 @@
-#include <iostream>
-#include <glad/glad.h>
-
 #include "engine.h"
 
+#include <iostream>
+
+#include "../game.h"
+#include "Rendering/shader.h"
 
 /**
- * Engine destructor
+ * @brief Creates an Engine instance
  */
-Engine::~Engine() {
-    delete shader;
-    delete gameLogic;
+Engine Engine::engineInstance;
+
+/**
+ * @brief Instace getter
+ * 
+ * @return Instance of the Engine
+ */
+Engine& Engine::Instance() {
+    return engineInstance;
 }
 
 /**
- * Runs everything
- *
- * @param game Name of the game
+ * @brief Runs Engine components
  */
-void Engine::run(std::string game) {
-    initGLFW(game);
-    initOpenGL();
-    mainLoop(game);
-    clean();
+void Engine::Run() {
+    InitGLFW();
+    InitOpenGL();
+    MainLoop();
+    Clean();
 }
 
 /**
- * Initiates GLFW
+ * @brief Initiates GLFW
  *
  * @param game Name of the game
  * @return 0 on success, 1 on failure
  */
-int Engine::initGLFW(std::string game) {
+int Engine::InitGLFW() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -39,10 +44,8 @@ int Engine::initGLFW(std::string game) {
 #ifdef __APPLE__
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-    
-    //TODO: loadUserConfigs();
 
-    window = glfwCreateWindow(800, 600, game.c_str(), NULL, NULL);
+    window = glfwCreateWindow(800, 600, "", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -54,11 +57,11 @@ int Engine::initGLFW(std::string game) {
 }
 
 /**
- * Initiates OpenGL
+ * @brief Initiates OpenGL
  *
  * @return 0 on success, 1 on failure
  */
-int Engine::initOpenGL() {
+int Engine::InitOpenGL() {
     auto framebuffer_size_callback = [](GLFWwindow* window, int width, int height) {
         glViewport(0, 0, width, height);
     };
@@ -74,46 +77,31 @@ int Engine::initOpenGL() {
 }
 
 /**
- * Initiates Game Logic
- *
- * @param game Name of the game
+ * @brief Main loop function
  */
-void Engine::initGameLogic(std::string game) {
-    gameLogic = new GameLogic();
-
-    //TODO: loadGameSettings(game);
-}
-
-/**
- * Main loop function
- *
- * @param game Name of the game
- */
-void Engine::mainLoop(std::string game) {
+void Engine::MainLoop() {
     running = true;
 
-    initGameLogic(game);
-
-    shader = new Shader("GameLogic/Engine/Rendering/Shaders/vertexShader.glsl",
+    shader = new Shader("Game/Engine/Rendering/Shaders/vertexShader.glsl",
                         "",
-                        "GameLogic/Engine/Rendering/Shaders/fragmentShader.glsl");
+                        "Game/Engine/Rendering/Shaders/fragmentShader.glsl");
     shader->shaderPipeline();
 
     while (running && !glfwWindowShouldClose(window)) {
-        handleEvents();
-        update();
-        render();
+        HandleEvents();
+        Update();
+        Render();
     }
 
-    clean();
+    Clean();
 }
 
 /**
- * Event Handler function
+ * @brief Event Handler function
  */
-void Engine::handleEvents() {
-    // TODO: handle game logic events
-    
+void Engine::HandleEvents() {
+    Game::Instance().HandleEvents();
+
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, true);
@@ -122,16 +110,16 @@ void Engine::handleEvents() {
 }
 
 /**
- * Updater function
+ * @brief Updater function
  */
-void Engine::update() {
-    //gameLogic->update();
+void Engine::Update() {
+    Game::Instance().Update();
 }
 
 /**
- * Render Function
+ * @brief Render Function
  */
-void Engine::render() {
+void Engine::Render() {
     // rendering commands start
     shader->shaderRenderer(glfwGetTime());
 
@@ -141,8 +129,15 @@ void Engine::render() {
 }
 
 /**
- * Cleaner function
+ * @brief Cleaner function
  */
-void Engine::clean() {
+void Engine::Clean() {
     glfwTerminate();
+}
+
+/**
+ * @brief Engine destructor
+ */
+Engine::~Engine() {
+    delete shader;
 }

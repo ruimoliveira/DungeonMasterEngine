@@ -25,17 +25,17 @@
     <Filter Include="dep\glad">
       <UniqueIdentifier>{db4505a7-766b-4635-9473-58c2038e392a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameLogic">
-      <UniqueIdentifier>{f120fded-7b58-4ff4-accd-105518453326}</UniqueIdentifier>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{8546beb1-119c-4d0c-af36-20afa10daaa2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameLogic\Engine">
-      <UniqueIdentifier>{fe30f60e-a8f0-4132-ba65-02210b774a70}</UniqueIdentifier>
+    <Filter Include="Source Files\Game\Engine">
+      <UniqueIdentifier>{c8b05db5-7dd2-46b5-b07d-ea14256098a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameLogic\Game">
-      <UniqueIdentifier>{acc0c61a-19fb-4088-95ca-cc48754d0f8c}</UniqueIdentifier>
+    <Filter Include="Source Files\Game\GameLogic">
+      <UniqueIdentifier>{796bfb69-6462-4b0f-9aa5-6e7a7cf04ceb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameLogic\Engine\Rendering">
-      <UniqueIdentifier>{b3b6ff8a-80f0-4a61-9bb1-9eeb568b82a9}</UniqueIdentifier>
+    <Filter Include="Source Files\Game\Engine\Rendering">
+      <UniqueIdentifier>{95b7ca6d-4a07-4d07-8788-ac1396fa9006}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,31 +45,31 @@
     <ClCompile Include="dep\glad\glad.c">
       <Filter>dep\glad</Filter>
     </ClCompile>
-    <ClCompile Include="GameLogic\engine.cpp">
-      <Filter>Source Files\GameLogic</Filter>
+    <ClCompile Include="Game\game.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="GameLogic\gameLogic.cpp">
-      <Filter>Source Files\GameLogic</Filter>
+    <ClCompile Include="Game\Engine\engine.cpp">
+      <Filter>Source Files\Game\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="GameLogic\Engine\Rendering\shader.cpp">
-      <Filter>Source Files\GameLogic\Engine\Rendering</Filter>
+    <ClCompile Include="Game\GameLogic\gameLogic.cpp">
+      <Filter>Source Files\Game\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Engine\Rendering\shader.cpp">
+      <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameLogic\engine.h">
-      <Filter>Source Files\GameLogic</Filter>
+    <ClInclude Include="Game\game.h">
+      <Filter>Source Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="GameLogic\gameLogic.h">
-      <Filter>Source Files\GameLogic</Filter>
+    <ClInclude Include="Game\Engine\engine.h">
+      <Filter>Source Files\Game\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameLogic\Engine\scene.h">
-      <Filter>Source Files\GameLogic\Engine</Filter>
+    <ClInclude Include="Game\GameLogic\gameLogic.h">
+      <Filter>Source Files\Game\GameLogic</Filter>
     </ClInclude>
-    <ClInclude Include="GameLogic\Game\game.h">
-      <Filter>Source Files\GameLogic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLogic\Engine\Rendering\shader.h">
-      <Filter>Source Files\GameLogic\Engine\Rendering</Filter>
+    <ClInclude Include="Game\Engine\Rendering\shader.h">
+      <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
