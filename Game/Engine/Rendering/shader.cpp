@@ -13,38 +13,50 @@
  * @param fragmentShaderPath Path to fragment shader GLSL code
  */
 Shader::Shader(const char* vertexShaderPath, const char* geometryShaderPath, const char* fragmentShaderPath) {
-    readShader(vertexShaderPath, &vertexShaderSource);
-    //readShader(geometryShaderPath, &geometryShaderSource);
-    readShader(fragmentShaderPath, &fragmentShaderSource);
+    if (vertexShaderPath != NULL) {
+        ReadShader(vertexShaderPath, &vertexShaderSource);
+    }
+    if (geometryShaderPath != NULL) {
+        ReadShader(geometryShaderPath, &geometryShaderSource);
+    }
+    if (fragmentShaderPath != NULL) {
+        ReadShader(fragmentShaderPath, &fragmentShaderSource);
+    }
 }
 
 /**
  * Shader destructor
  */
 Shader::~Shader() {
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &ebo);
     glDeleteProgram(shaderProgramID);
 }
 
 /**
  * Shader pipeline function
  */
-void Shader::shaderPipeline() {
+void Shader::ShaderPipeline() {
     if (vertexShaderSource.empty() || fragmentShaderSource.empty()) {
         std::cout << "ERROR::SHADER::NO_SHADER_CODE_COMPILED" << std::endl;
         return;
     }
 
-    compileShader(&vertexShaderID, GL_VERTEX_SHADER, &vertexShaderSource);
-    //compileShader(&geometryShaderID, GL_GEOMETRY_SHADER,&geometryShaderSource);
-    compileShader(&fragmentShaderID, GL_FRAGMENT_SHADER, &fragmentShaderSource);
+    if (!vertexShaderSource.empty()) {
+        CompileShader(&vertexShaderID, GL_VERTEX_SHADER, &vertexShaderSource);
+    }
+    if (!geometryShaderSource.empty()) {
+        CompileShader(&geometryShaderID, GL_GEOMETRY_SHADER,&geometryShaderSource);
+    }
+    if (!fragmentShaderSource.empty()) {
+        CompileShader(&fragmentShaderID, GL_FRAGMENT_SHADER, &fragmentShaderSource);
+    }
 
-    linkShader();
-    clean();
+    LinkShader();
+    Clean();
 
-    vertexBuilder();
+    VertexBuilder();
 }
 
 /**
@@ -53,7 +65,7 @@ void Shader::shaderPipeline() {
  * @param shaderPath Path to shader GLSL code
  * @param shaderSource Variable to save source code into
  */
-void Shader::readShader(const char* shaderPath, std::string* shaderSource) {
+void Shader::ReadShader(const char* shaderPath, std::string* shaderSource) {
     std::string glslCode;
     std::ifstream shaderFile;
     shaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
@@ -77,7 +89,7 @@ void Shader::readShader(const char* shaderPath, std::string* shaderSource) {
  * @param glShader Type of shader to be compiled
  * @param shaderSource Shader GLSL source code
  */
-void Shader::compileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource) {
+void Shader::CompileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource) {
     //shader pipeline commands
     *shaderID = glCreateShader(glShader);
     const char* source = (*shaderSource).c_str();
@@ -97,7 +109,7 @@ void Shader::compileShader(unsigned int* shaderID, const int glShader, std::stri
 /**
  * Vertex Attribute Linker
  */
-void Shader::linkShader() {
+void Shader::LinkShader() {
     // shader program
     shaderProgramID = glCreateProgram();
     glAttachShader(shaderProgramID, vertexShaderID);
@@ -118,29 +130,29 @@ void Shader::linkShader() {
 /**
  * Shape Builder
  */
-void Shader::vertexBuilder() {
+void Shader::VertexBuilder() {
     // vertex input
     float vertices[] = {
         // positions         // colors
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
+         0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,   // bottom right
+        -0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,   // bottom left
+         0.0f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f    // top
     };
 
     unsigned int indices[] = {
         0, 1, 2
     };
 
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+    glGenBuffers(1, &ebo);
 
-    glBindVertexArray(VAO);
+    glBindVertexArray(vao);
     
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // linking vertex attributes
@@ -160,10 +172,10 @@ void Shader::vertexBuilder() {
  *
  * @param time Time since last frame
  */
-void Shader::shaderRenderer(float time) {
-    use();
+void Shader::ShaderRenderer(float time) {
+    Use();
     
-    glBindVertexArray(VAO);
+    glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
@@ -171,35 +183,35 @@ void Shader::shaderRenderer(float time) {
 /**
  * Shader activation function
  */
-void Shader::use() {
+void Shader::Use() {
     glUseProgram(shaderProgramID);
 }
 
 /**
  * GLSL uniform bool variable setter 
  */
-void Shader::setBool(const std::string& name, bool value) const {
+void Shader::SetBool(const std::string& name, bool value) const {
     glUniform1i(glGetUniformLocation(shaderProgramID, name.c_str()), (int)value);
 }
 
 /**
  * GLSL uniform int variable setter 
  */
-void Shader::setInt(const std::string& name, int value) const {
+void Shader::SetInt(const std::string& name, int value) const {
     glUniform1i(glGetUniformLocation(shaderProgramID, name.c_str()), value);
 }
 
 /**
  * GLSL uniform float variable setter 
  */
-void Shader::setFloat(const std::string& name, float value) const {
+void Shader::SetFloat(const std::string& name, float value) const {
     glUniform1f(glGetUniformLocation(shaderProgramID, name.c_str()), value);
 }
 
 /**
  * Cleaner function
  */
-void Shader::clean() {
+void Shader::Clean() {
     glDeleteShader(vertexShaderID);
     //glDeleteShader(geometryShaderID);
     glDeleteShader(fragmentShaderID);

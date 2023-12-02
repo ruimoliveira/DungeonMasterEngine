@@ -83,9 +83,9 @@ void Engine::MainLoop() {
     running = true;
 
     shader = new Shader("Game/Engine/Rendering/Shaders/vertexShader.glsl",
-                        "",
+                        NULL,
                         "Game/Engine/Rendering/Shaders/fragmentShader.glsl");
-    shader->shaderPipeline();
+    shader->ShaderPipeline();
 
     while (running && !glfwWindowShouldClose(window)) {
         HandleEvents();
@@ -121,7 +121,7 @@ void Engine::Update() {
  */
 void Engine::Render() {
     // rendering commands start
-    shader->shaderRenderer(glfwGetTime());
+    shader->ShaderRenderer(glfwGetTime());
 
     // check and call events and swap the buffers
     glfwPollEvents();

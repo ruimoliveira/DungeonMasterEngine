@@ -15,16 +15,22 @@ public:
     Shader(const char* vertexShaderPath, const char* geometryShaderPath, const char* fragmentShaderPath);
     ~Shader();
 
-    void shaderPipeline();
-    void shaderRenderer(float time);
-    void use();
+    void ShaderPipeline();
+    void ShaderRenderer(float time);
+    void Use();
 
     // utility uniform functions
-    void setBool(const std::string& name, bool value) const;
-    void setInt(const std::string& name, int value) const;
-    void setFloat(const std::string& name, float value) const;
+    void SetBool(const std::string& name, bool value) const;
+    void SetInt(const std::string& name, int value) const;
+    void SetFloat(const std::string& name, float value) const;
 
 private:
+    void ReadShader(const char* shaderPath, std::string* shaderSource);
+    void CompileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource);
+    void LinkShader();
+    void VertexBuilder();
+    void Clean();
+
     std::string vertexShaderSource {""};
     std::string geometryShaderSource {""};
     std::string fragmentShaderSource {""};
@@ -34,15 +40,9 @@ private:
     unsigned int fragmentShaderID {0};
     unsigned int shaderProgramID {0};
 
-    unsigned int VAO {0};
-    unsigned int VBO {0};
-    unsigned int EBO {0};
-    
-    void readShader(const char* shaderPath, std::string* shaderSource);
-    void compileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource);
-    void linkShader();
-    void vertexBuilder();
-    void clean();
+    unsigned int vao {0};
+    unsigned int vbo {0};
+    unsigned int ebo {0};
 
 };
 
