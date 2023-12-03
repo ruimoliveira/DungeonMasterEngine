@@ -117,9 +117,16 @@ void Shader::CompileShader(unsigned int* shaderID, const int glShader, std::stri
 void Shader::LinkShader() {
     // shader program
     shaderProgramID = glCreateProgram();
-    glAttachShader(shaderProgramID, vertexShaderID);
-    //glAttachShader(shaderProgramID, geometryShaderID);
-    glAttachShader(shaderProgramID, fragmentShaderID);
+
+    if (!vertexShaderSource.empty()) {
+        glAttachShader(shaderProgramID, vertexShaderID);
+    }
+    if (!geometryShaderSource.empty()) {
+        glAttachShader(shaderProgramID, geometryShaderID);
+    }
+    if (!fragmentShaderSource.empty()) {
+        glAttachShader(shaderProgramID, fragmentShaderID);
+    }
     glLinkProgram(shaderProgramID);
 
     // check for compile errors
@@ -174,7 +181,13 @@ void Shader::SetFloat(const std::string& name, float value) const {
  * @brief Cleaner function
  */
 void Shader::Clean() {
-    glDeleteShader(vertexShaderID);
-    //glDeleteShader(geometryShaderID);
-    glDeleteShader(fragmentShaderID);
+    if (!vertexShaderSource.empty()) {
+        glDeleteShader(vertexShaderID);
+    }
+    if (!geometryShaderSource.empty()) {
+        glDeleteShader(geometryShaderID);
+    }
+    if (!fragmentShaderSource.empty()) {
+        glDeleteShader(fragmentShaderID);
+    }
 }

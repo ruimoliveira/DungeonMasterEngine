@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Game\Engine\Rendering\Shaders">
       <UniqueIdentifier>{f3bc5428-f9cd-45e9-a705-34c1e829eeb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="dep\stb_image">
+      <UniqueIdentifier>{c49f8a19-e7c2-4eff-8954-693c2002b40f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,14 +63,14 @@
     <ClCompile Include="Game\Engine\Rendering\shader.cpp">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="dep\stb_image\stb_image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Engine\Rendering\vertex.cpp">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Game\Engine\Rendering\texture.cpp">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="dep\stb_image\stb_image.cpp">
+      <Filter>dep\stb_image</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,14 +86,14 @@
     <ClInclude Include="Game\Engine\Rendering\shader.h">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="dep\stb_image\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Engine\Rendering\vertex.h">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Game\Engine\Rendering\texture.h">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="dep\stb_image\stb_image.h">
+      <Filter>dep\stb_image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

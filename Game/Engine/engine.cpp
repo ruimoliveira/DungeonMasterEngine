@@ -52,6 +52,10 @@ int Engine::InitGLFW() {
         return EXIT_FAILURE;
     }
     glfwMakeContextCurrent(window);
+    auto framebuffer_size_callback = [](GLFWwindow* window, int width, int height) {
+        glViewport(0, 0, width, height);
+    };
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     return EXIT_SUCCESS;
 }
@@ -62,12 +66,6 @@ int Engine::InitGLFW() {
  * @return 0 on success, 1 on failure
  */
 int Engine::InitOpenGL() {
-    auto framebuffer_size_callback = [](GLFWwindow* window, int width, int height) {
-        glViewport(0, 0, width, height);
-    };
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    gladLoadGL();
-
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return EXIT_FAILURE;
@@ -124,8 +122,8 @@ void Engine::Render() {
     shader->ShaderRenderer(glfwGetTime());
 
     // check and call events and swap the buffers
-    glfwPollEvents();
     glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 /**
