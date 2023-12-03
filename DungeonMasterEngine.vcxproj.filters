@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Game\Engine\Rendering">
       <UniqueIdentifier>{95b7ca6d-4a07-4d07-8788-ac1396fa9006}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Engine\Rendering\Shaders">
+      <UniqueIdentifier>{f3bc5428-f9cd-45e9-a705-34c1e829eeb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +60,15 @@
     <ClCompile Include="Game\Engine\Rendering\shader.cpp">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="dep\stb_image\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Engine\Rendering\vertex.cpp">
+      <Filter>Source Files\Game\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Engine\Rendering\texture.cpp">
+      <Filter>Source Files\Game\Engine\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\game.h">
@@ -71,5 +83,22 @@
     <ClInclude Include="Game\Engine\Rendering\shader.h">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="dep\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Engine\Rendering\vertex.h">
+      <Filter>Source Files\Game\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Engine\Rendering\texture.h">
+      <Filter>Source Files\Game\Engine\Rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Engine\Rendering\Shaders\fragmentShader.glsl">
+      <Filter>Source Files\Game\Engine\Rendering\Shaders</Filter>
+    </None>
+    <None Include="Game\Engine\Rendering\Shaders\vertexShader.glsl">
+      <Filter>Source Files\Game\Engine\Rendering\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

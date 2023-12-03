@@ -12,7 +12,7 @@ public:
     GameLogic() {};
     ~GameLogic() {};
 
-    void update();
+    void Update();
 
 private:
     int gameState {};

@@ -5,6 +5,8 @@
 
 #include <string>
 
+class Vertex;
+
 /**
  * @class Shader
  *
@@ -28,7 +30,6 @@ private:
     void ReadShader(const char* shaderPath, std::string* shaderSource);
     void CompileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource);
     void LinkShader();
-    void VertexBuilder();
     void Clean();
 
     std::string vertexShaderSource {""};
@@ -40,9 +41,7 @@ private:
     unsigned int fragmentShaderID {0};
     unsigned int shaderProgramID {0};
 
-    unsigned int vao {0};
-    unsigned int vbo {0};
-    unsigned int ebo {0};
+    Vertex* vertex {nullptr};
 
 };
 

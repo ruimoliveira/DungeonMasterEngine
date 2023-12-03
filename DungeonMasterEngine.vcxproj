@@ -138,17 +138,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dep\glad\glad.c" />
+    <ClCompile Include="dep\stb_image\stb_image.cpp" />
     <ClCompile Include="Game\Engine\engine.cpp" />
     <ClCompile Include="Game\Engine\Rendering\shader.cpp" />
+    <ClCompile Include="Game\Engine\Rendering\texture.cpp" />
+    <ClCompile Include="Game\Engine\Rendering\vertex.cpp" />
     <ClCompile Include="Game\game.cpp" />
     <ClCompile Include="Game\GameLogic\gameLogic.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dep\stb_image\stb_image.h" />
     <ClInclude Include="Game\Engine\engine.h" />
     <ClInclude Include="Game\Engine\Rendering\shader.h" />
+    <ClInclude Include="Game\Engine\Rendering\texture.h" />
+    <ClInclude Include="Game\Engine\Rendering\vertex.h" />
     <ClInclude Include="Game\game.h" />
     <ClInclude Include="Game\GameLogic\gameLogic.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Engine\Rendering\Shaders\fragmentShader.glsl" />
+    <None Include="Game\Engine\Rendering\Shaders\vertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

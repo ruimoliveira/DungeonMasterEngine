@@ -5,8 +5,10 @@
 #include <fstream>
 #include <sstream>
 
+#include "vertex.h"
+
 /**
- * Shader constructor
+ * @brief Shader constructor
  *
  * @param vertexShaderPath Path to vertex shader GLSL code
  * @param geometryShaderPath Path to geometry shader GLSL code
@@ -22,20 +24,20 @@ Shader::Shader(const char* vertexShaderPath, const char* geometryShaderPath, con
     if (fragmentShaderPath != NULL) {
         ReadShader(fragmentShaderPath, &fragmentShaderSource);
     }
+
+    vertex = new Vertex();
 }
 
 /**
- * Shader destructor
+ * @brief Shader destructor
  */
 Shader::~Shader() {
-    glDeleteVertexArrays(1, &vao);
-    glDeleteBuffers(1, &vbo);
-    glDeleteBuffers(1, &ebo);
+    delete vertex;
     glDeleteProgram(shaderProgramID);
 }
 
 /**
- * Shader pipeline function
+ * @brief Shader pipeline function
  */
 void Shader::ShaderPipeline() {
     if (vertexShaderSource.empty() || fragmentShaderSource.empty()) {
@@ -56,11 +58,14 @@ void Shader::ShaderPipeline() {
     LinkShader();
     Clean();
 
-    VertexBuilder();
+    //TODO: Eventually move to scene builder and resource loading and managing
+    vertex->VertexBuilder();
+    //LoadTexture();
+    //CreateTexture();
 }
 
 /**
- * GLSL shader code reader
+ * @brief GLSL shader code reader
  *
  * @param shaderPath Path to shader GLSL code
  * @param shaderSource Variable to save source code into
@@ -83,7 +88,7 @@ void Shader::ReadShader(const char* shaderPath, std::string* shaderSource) {
 }
 
 /**
- * Shader compiler function
+ * @brief Shader compiler function
  *
  * @param shaderID Variable to save shader ID on
  * @param glShader Type of shader to be compiled
@@ -107,7 +112,7 @@ void Shader::CompileShader(unsigned int* shaderID, const int glShader, std::stri
 }
 
 /**
- * Vertex Attribute Linker
+ * @brief Vertex Attribute Linker
  */
 void Shader::LinkShader() {
     // shader program
@@ -128,88 +133,45 @@ void Shader::LinkShader() {
 }
 
 /**
- * Shape Builder
- */
-void Shader::VertexBuilder() {
-    // vertex input
-    float vertices[] = {
-        // positions         // colors
-         0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,   // bottom right
-        -0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,   // bottom left
-         0.0f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f    // top
-    };
-
-    unsigned int indices[] = {
-        0, 1, 2
-    };
-
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
-    glGenBuffers(1, &ebo);
-
-    glBindVertexArray(vao);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // linking vertex attributes
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-}
-
-/**
- * Render function
+ * @brief Render function
  *
  * @param time Time since last frame
  */
 void Shader::ShaderRenderer(float time) {
     Use();
-    
-    glBindVertexArray(vao);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    vertex->Bind();
 }
 
 /**
- * Shader activation function
+ * @brief Shader activation function
  */
 void Shader::Use() {
     glUseProgram(shaderProgramID);
 }
 
 /**
- * GLSL uniform bool variable setter 
+ * @brief GLSL uniform bool variable setter 
  */
 void Shader::SetBool(const std::string& name, bool value) const {
     glUniform1i(glGetUniformLocation(shaderProgramID, name.c_str()), (int)value);
 }
 
 /**
- * GLSL uniform int variable setter 
+ * @brief GLSL uniform int variable setter 
  */
 void Shader::SetInt(const std::string& name, int value) const {
     glUniform1i(glGetUniformLocation(shaderProgramID, name.c_str()), value);
 }
 
 /**
- * GLSL uniform float variable setter 
+ * @brief GLSL uniform float variable setter 
  */
 void Shader::SetFloat(const std::string& name, float value) const {
     glUniform1f(glGetUniformLocation(shaderProgramID, name.c_str()), value);
 }
 
 /**
- * Cleaner function
+ * @brief Cleaner function
  */
 void Shader::Clean() {
     glDeleteShader(vertexShaderID);
