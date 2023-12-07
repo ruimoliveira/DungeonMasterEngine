@@ -1,11 +1,11 @@
-#include "vertex.h"
+#include "mesh.h"
 
 #include <glad/glad.h>
 
 /**
  * @brief Vertex destructor
  */
-Vertex::~Vertex() {
+Mesh::~Mesh() {
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
     glDeleteBuffers(1, &ebo);
@@ -14,7 +14,7 @@ Vertex::~Vertex() {
 /**
  * @brief Shape Builder
  */
-void Vertex::VertexBuilder() {
+void Mesh::VertexBuilder() {
     // vertex input
     float vertices[] = {
         // positions         // colors          //texture coords
@@ -56,7 +56,7 @@ void Vertex::VertexBuilder() {
 /**
  * @brief Binds vertex array
  */
-void Vertex::Bind() {
+void Mesh::Bind() {
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     //glBindVertexArray(0);

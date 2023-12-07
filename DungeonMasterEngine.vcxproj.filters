@@ -63,7 +63,7 @@
     <ClCompile Include="Game\Engine\Rendering\shader.cpp">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Engine\Rendering\vertex.cpp">
+    <ClCompile Include="Game\Engine\Rendering\mesh.cpp">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Game\Engine\Rendering\texture.cpp">
@@ -86,7 +86,7 @@
     <ClInclude Include="Game\Engine\Rendering\shader.h">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Engine\Rendering\vertex.h">
+    <ClInclude Include="Game\Engine\Rendering\mesh.h">
       <Filter>Source Files\Game\Engine\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Game\Engine\Rendering\texture.h">

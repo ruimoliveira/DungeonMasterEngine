@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "vertex.h"
+#include "mesh.h"
 
 /**
  * @brief Shader constructor
@@ -25,7 +25,7 @@ Shader::Shader(const char* vertexShaderPath, const char* geometryShaderPath, con
         ReadShader(fragmentShaderPath, &fragmentShaderSource);
     }
 
-    vertex = new Vertex();
+    vertex = new Mesh();
 }
 
 /**

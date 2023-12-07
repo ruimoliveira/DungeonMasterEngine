@@ -1,19 +1,17 @@
 #pragma once
 
-#ifndef vertex_h
-#define vertex_h
-
-#include <string>
+#ifndef mesh_h
+#define mesh_h
 
 /**
  * @class Vertex
  *
  * @brief Implementation of Vertex related functionality
  */
-class Vertex {
+class Mesh {
 public:
-    Vertex() = default;
-    ~Vertex();
+    Mesh() = default;
+    ~Mesh();
 
     void VertexBuilder();
     void Bind();
@@ -27,4 +25,4 @@ private:
 
 };
 
-#endif // vertex_h
+#endif // mesh_h

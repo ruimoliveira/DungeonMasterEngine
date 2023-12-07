@@ -5,7 +5,7 @@
 
 #include <string>
 
-class Vertex;
+class Mesh;
 
 /**
  * @class Shader
@@ -41,7 +41,7 @@ private:
     unsigned int fragmentShaderID {0};
     unsigned int shaderProgramID {0};
 
-    Vertex* vertex {nullptr};
+    Mesh* vertex {nullptr};
 
 };
 
