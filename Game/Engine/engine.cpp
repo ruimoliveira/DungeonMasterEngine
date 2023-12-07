@@ -80,9 +80,9 @@ int Engine::InitOpenGL() {
 void Engine::MainLoop() {
     running = true;
 
-    shader = new Shader("Game/Engine/Rendering/Shaders/vertexShader.glsl",
+    shader = new Shader("Game/Assets/Shaders/vertexShader.glsl",
                         NULL,
-                        "Game/Engine/Rendering/Shaders/fragmentShader.glsl");
+                        "Game/Assets/Shaders/fragmentShader.glsl");
     shader->ShaderPipeline();
 
     while (running && !glfwWindowShouldClose(window)) {

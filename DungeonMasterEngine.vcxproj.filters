@@ -43,6 +43,9 @@
     <Filter Include="dep\stb_image">
       <UniqueIdentifier>{c49f8a19-e7c2-4eff-8954-693c2002b40f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Assets">
+      <UniqueIdentifier>{ca66304e-51f9-4021-8ddf-1d3f589869c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
