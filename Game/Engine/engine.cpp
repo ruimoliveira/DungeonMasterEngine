@@ -118,6 +118,8 @@ void Engine::Update() {
  * @brief Render Function
  */
 void Engine::Render() {
+    glClear(GL_COLOR_BUFFER_BIT);
+
     // rendering commands start
     shader->ShaderRenderer(glfwGetTime());
 
