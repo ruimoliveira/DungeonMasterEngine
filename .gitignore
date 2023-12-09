@@ -16,3 +16,6 @@ x64/**
 *.user
 *.userosscache
 *.sln.docstates
+
+# MacOS store files
+*.DS_Store
