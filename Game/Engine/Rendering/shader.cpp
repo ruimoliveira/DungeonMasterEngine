@@ -1,6 +1,9 @@
 #include "shader.h"
 
 #include <glad/glad.h>
+#include <glm/matrix.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -184,7 +187,15 @@ void Shader::BindTexture() {
  */
 void Shader::ShaderRenderer(float time) {
     BindTexture();
+
+    // create transformations
+    glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+    transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+    transform = glm::rotate(transform, time, glm::vec3(0.0f, 0.0f, 1.0f));
+
     Use();
+    unsigned int transformLoc = glGetUniformLocation(shaderProgramID, "transform");
+    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
     mesh->BindVertex();
 }
 
