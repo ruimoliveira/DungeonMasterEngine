@@ -17,12 +17,9 @@ public:
 
     void VertexBuilder();
     void BindVertex();
-    void LoadTexture(std::string texturePath);
-    void BindTexture();
 
 private:
     unsigned int vertexShaderID {0};
-    unsigned int textureID {0};
 
     unsigned int vao {0};
     unsigned int vbo {0};

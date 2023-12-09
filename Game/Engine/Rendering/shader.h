@@ -19,6 +19,7 @@ public:
 
     void ShaderPipeline();
     void ShaderRenderer(float time);
+    void LoadTexture(std::string texturePath);
     void Use();
 
     // utility uniform functions
@@ -30,6 +31,7 @@ private:
     void ReadShader(const char* shaderPath, std::string* shaderSource);
     void CompileShader(unsigned int* shaderID, const int glShader, std::string* shaderSource);
     void LinkShader();
+    void BindTexture();
     void Clean();
 
     std::string vertexShaderSource {""};
@@ -39,6 +41,9 @@ private:
     unsigned int vertexShaderID {0};
     unsigned int geometryShaderID {0};
     unsigned int fragmentShaderID {0};
+
+    unsigned int textureID {0};
+
     unsigned int shaderProgramID {0};
 
     Mesh* mesh {nullptr};

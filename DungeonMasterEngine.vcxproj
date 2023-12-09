@@ -157,6 +157,7 @@
     <ClInclude Include="include\glad\glad.h" />
     <ClInclude Include="include\GLFW\glfw3.h" />
     <ClInclude Include="include\GLFW\glfw3native.h" />
+    <ClInclude Include="include\glm\glm.hpp" />
     <ClInclude Include="include\KHR\khrplatform.h" />
     <ClInclude Include="include\stb_image\stb_image.h" />
   </ItemGroup>

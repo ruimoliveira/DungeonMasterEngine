@@ -84,6 +84,7 @@ void Engine::MainLoop() {
                         NULL,
                         "Game/Assets/Shaders/fragmentShader.glsl");
     shader->ShaderPipeline();
+    shader->LoadTexture("Game/Assets/GameData/wall.jpg");
 
     while (running && !glfwWindowShouldClose(window)) {
         HandleEvents();

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stb_image/stb_image.h>
 
 #include "mesh.h"
 
@@ -60,7 +61,6 @@ void Shader::ShaderPipeline() {
 
     //TODO: Eventually move to scene builder and resource loading and managing
     mesh->VertexBuilder();
-    mesh->LoadTexture("Game/Assets/GameData/wall.jpg");
 }
 
 /**
@@ -139,12 +139,51 @@ void Shader::LinkShader() {
 }
 
 /**
+ * @brief Texture loader
+ */
+void Shader::LoadTexture(std::string texturePath) {
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    // set texture wrapping
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    //load and generate texture
+    int width, height, nrChannels;
+    unsigned char* data = stbi_load(texturePath.c_str(), &width, &height, &nrChannels, 0);
+    if (data) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else {
+        std::cout << "ERROR::MESH : Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+
+    // tell opengl for each sampler to which texture unit it belongs to
+    Use();
+    SetInt("textureID", 0);
+}
+
+/**
+ * @brief Texture binder to texture units
+ */
+void Shader::BindTexture() {
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+}
+
+/**
  * @brief Render function
  *
  * @param time Time since last frame
  */
 void Shader::ShaderRenderer(float time) {
-    mesh->BindTexture();
+    BindTexture();
     Use();
     mesh->BindVertex();
 }
