@@ -138,27 +138,36 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dep\glad\glad.c" />
-    <ClCompile Include="dep\stb_image\stb_image.cpp" />
     <ClCompile Include="Game\Engine\engine.cpp" />
     <ClCompile Include="Game\Engine\Rendering\shader.cpp" />
     <ClCompile Include="Game\Engine\Rendering\texture.cpp" />
     <ClCompile Include="Game\Engine\Rendering\mesh.cpp" />
     <ClCompile Include="Game\game.cpp" />
     <ClCompile Include="Game\GameLogic\gameLogic.cpp" />
+    <ClCompile Include="include\stb_image\stb_image.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dep\stb_image\stb_image.h" />
     <ClInclude Include="Game\Engine\engine.h" />
     <ClInclude Include="Game\Engine\Rendering\shader.h" />
     <ClInclude Include="Game\Engine\Rendering\texture.h" />
     <ClInclude Include="Game\Engine\Rendering\mesh.h" />
     <ClInclude Include="Game\game.h" />
     <ClInclude Include="Game\GameLogic\gameLogic.h" />
+    <ClInclude Include="include\glad\glad.h" />
+    <ClInclude Include="include\GLFW\glfw3.h" />
+    <ClInclude Include="include\GLFW\glfw3native.h" />
+    <ClInclude Include="include\KHR\khrplatform.h" />
+    <ClInclude Include="include\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Game\Assets\Shaders\fragmentShader.glsl" />
+    <None Include="Game\Assets\Shaders\vertexShader.glsl" />
     <None Include="Game\Engine\Rendering\Shaders\fragmentShader.glsl" />
     <None Include="Game\Engine\Rendering\Shaders\vertexShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\Assets\GameData\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
