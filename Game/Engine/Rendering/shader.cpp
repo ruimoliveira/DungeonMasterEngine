@@ -25,14 +25,14 @@ Shader::Shader(const char* vertexShaderPath, const char* geometryShaderPath, con
         ReadShader(fragmentShaderPath, &fragmentShaderSource);
     }
 
-    vertex = new Mesh();
+    mesh = new Mesh();
 }
 
 /**
  * @brief Shader destructor
  */
 Shader::~Shader() {
-    delete vertex;
+    delete mesh;
     glDeleteProgram(shaderProgramID);
 }
 
@@ -41,7 +41,7 @@ Shader::~Shader() {
  */
 void Shader::ShaderPipeline() {
     if (vertexShaderSource.empty() || fragmentShaderSource.empty()) {
-        std::cout << "ERROR::SHADER::NO_SHADER_CODE_COMPILED" << std::endl;
+        std::cout << "ERROR::SHADER : No shader code compiled" << std::endl;
         return;
     }
 
@@ -59,9 +59,8 @@ void Shader::ShaderPipeline() {
     Clean();
 
     //TODO: Eventually move to scene builder and resource loading and managing
-    vertex->VertexBuilder();
-    //LoadTexture();
-    //CreateTexture();
+    mesh->VertexBuilder();
+    mesh->LoadTexture("Game/Assets/GameData/wall.jpg");
 }
 
 /**
@@ -81,7 +80,7 @@ void Shader::ReadShader(const char* shaderPath, std::string* shaderSource) {
         shaderFile.close();
         glslCode = shaderStream.str();
     } catch (std::ifstream::failure e) {
-        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << shaderPath << std::endl;
+        std::cout << "ERROR::SHADER : Shader file not read at " << shaderPath << std::endl;
         glslCode = "";
     }
     *shaderSource = glslCode;
@@ -107,7 +106,7 @@ void Shader::CompileShader(unsigned int* shaderID, const int glShader, std::stri
     glGetShaderiv(*shaderID, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(*shaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER : Shader compiler errors:\n" << infoLog << std::endl;
     }
 }
 
@@ -135,7 +134,7 @@ void Shader::LinkShader() {
     glGetProgramiv(shaderProgramID, GL_LINK_STATUS, &success);
     if (!success) {
         glGetProgramInfoLog(shaderProgramID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER : Shader linker errors :\n" << infoLog << std::endl;
     }
 }
 
@@ -145,8 +144,9 @@ void Shader::LinkShader() {
  * @param time Time since last frame
  */
 void Shader::ShaderRenderer(float time) {
+    mesh->BindTexture();
     Use();
-    vertex->Bind();
+    mesh->BindVertex();
 }
 
 /**

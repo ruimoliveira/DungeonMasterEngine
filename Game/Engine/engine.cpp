@@ -47,7 +47,7 @@ int Engine::InitGLFW() {
 
     window = glfwCreateWindow(800, 600, "", NULL, NULL);
     if (window == NULL) {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cout << "ERROR::ENGINE : Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return EXIT_FAILURE;
     }
@@ -67,7 +67,7 @@ int Engine::InitGLFW() {
  */
 int Engine::InitOpenGL() {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        std::cout << "ERROR::ENGINE : Failed to initialize GLAD" << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -118,6 +118,7 @@ void Engine::Update() {
  * @brief Render Function
  */
 void Engine::Render() {
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // rendering commands start

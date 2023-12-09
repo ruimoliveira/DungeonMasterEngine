@@ -41,7 +41,7 @@ private:
     unsigned int fragmentShaderID {0};
     unsigned int shaderProgramID {0};
 
-    Mesh* vertex {nullptr};
+    Mesh* mesh {nullptr};
 
 };
 
